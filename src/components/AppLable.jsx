@@ -1,24 +1,24 @@
 import React from "react";
 
 export const AppLable = ({
-    labelText,
-    labelPlaceholder,
+    lableText,
+    lablePlaceholder,
     errorText,
-    labelId,
-    labelValue,
-    labelChange
+    lableId,
+    lableValue,
+    lableChange,
 }) => {
     return (
-        <label className = "input-wrapper" htmlFor = {labelId}>
-            {labelText}
+        <label className = "input-wrapper" htmlFor = {lableId}>
+            {lableText}
             <input
             required
             type="text"
-            name={labelId}
-            id={labelId}
-            placeholder={labelPlaceholder}
-            value={labelValue}
-            onChange={(e)=> labelChange(e.target.value)}
+            name={lableId}
+            id={lableId}
+            placeholder={lablePlaceholder}
+            value={lableValue}
+            onChange={(e)=> lableChange(e.target.value)}
             />
             <span id="error-message">{errorText}</span>
         </label>

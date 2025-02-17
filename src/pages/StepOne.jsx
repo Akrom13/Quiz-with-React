@@ -2,6 +2,7 @@ import React from "react";
 import { Header } from "../components/Header";
 import { AppButton } from "../components/AppButton";
 import { AppLable } from "../components/AppLable";
+import { SpanLable } from "../components/SpanLable";
 
 
 const StepOne = () => {
@@ -11,10 +12,8 @@ const StepOne = () => {
         <div className="single-input-quiz">
           <div className="indicator">
             <div className="indicator__text">
-              <span className="indicator__description">
-                Скидка за прохождение опроса:
-              </span>
-              <span className="indicator__value">15%</span>
+              <SpanLable spanIndicatorText="Скидка за прохождение опроса:"/>
+              <SpanLable spanIndicatorText="15%"/>
             </div>
             <div className="indicator__progressbar">
               <div className="indicator__unit indicator__unit-1"></div>
@@ -27,8 +26,8 @@ const StepOne = () => {
             <Header headerType="h2" headerText="1. Занимательный вопрос"/>
             <AppLable 
               errorText="Введите номер в правильном формате например"
-              labelId="answer"
-              labelPlaceholder="Ваш ответ"
+              lableId="answer"
+              lablePlaceholder="Ваш ответ"
             />
             <AppButton btnText="Далее" isDisabled={isDisabled} btnType="submit"/>
           </div>
