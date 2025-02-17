@@ -1,4 +1,8 @@
 import React from "react";
+import { Header } from "../components/Header";
+import { AppButton } from "../components/AppButton";
+import { AppLable } from "../components/AppLable";
+
 
 const StepOne = () => {
   return (
@@ -20,21 +24,13 @@ const StepOne = () => {
             </div>
           </div>
           <div className="question">
-            <h2>1. Занимательный вопрос</h2>
-            <label className="input-wrapper">
-              <input
-                required
-                type="text"
-                name="answer"
-                placeholder="Ваш ответ"
-              />
-              <span id="error-message">
-                Введите номер в правильном формате например
-              </span>
-            </label>
-            <button type="button" disabled id="next-btn">
-              Далее
-            </button>
+            <Header headerType="h2" headerText="1. Занимательный вопрос"/>
+            <AppLable 
+              errorText="Введите номер в правильном формате например"
+              labelId="answer"
+              labelPlaceholder="Ваш ответ"
+            />
+            <AppButton btnText="Далее" isDisabled={isDisabled} btnType="submit"/>
           </div>
         </div>
       </div>
