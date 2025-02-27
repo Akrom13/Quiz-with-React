@@ -1,35 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import { AppButton } from "../components/AppButton";
-import { AppLable } from "../components/AppLable";
-import { SpanLable } from "../components/SpanLable";
-
+import { AppLabel } from "../components/AppLabel";
+import { SpanLabel } from "../components/SpanLabel";
+import { ProgressBar } from "../components/ProgressBar";
 
 const StepOne = () => {
+  const [userOne, setUserOne] = useState("");
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  useEffect(() => {
+    if (userOne) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }, [userOne]);
+
   return (
     <div className="container">
       <div className="wrapper">
         <div className="single-input-quiz">
           <div className="indicator">
             <div className="indicator__text">
-              <SpanLable spanIndicatorText="Скидка за прохождение опроса:"/>
-              <SpanLable spanIndicatorText="15%"/>
+              <SpanLabel spanIndicatorText="Скидка за прохождение опроса:" />
+              <SpanLabel spanIndicatorText="15%" />
             </div>
-            <div className="indicator__progressbar">
-              <div className="indicator__unit indicator__unit-1"></div>
-              <div className="indicator__unit indicator__unit-2"></div>
-              <div className="indicator__unit indicator__unit-3"></div>
-              <div className="indicator__unit indicator__unit-4"></div>
-            </div>
+            <ProgressBar currentStep={1} />
           </div>
           <div className="question">
-            <Header headerType="h2" headerText="1. Занимательный вопрос"/>
-            <AppLable 
+            <Header headerType="h2" headerText="Где вы про нас узнали ?" />
+            <AppLabel
               errorText="Введите номер в правильном формате например"
-              lableId="answer"
-              lablePlaceholder="Ваш ответ"
+              labelId="answer"
+              labelPlaceholder="Ваш ответ"
+              lableValue={userOne}
+              lableChange={setUserOne}
             />
-            <AppButton btnText="Далее" isDisabled={isDisabled} btnType="submit"/>
+            <AppButton
+              btnText="Далее"
+              isDisabled={isDisabled}
+              btnType="submit"
+              btnClick={() => handleClick()}
+            />
           </div>
         </div>
       </div>
