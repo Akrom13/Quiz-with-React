@@ -1,59 +1,70 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ProgressBar } from "../components/ProgressBar";
+import { Header } from "../components/Header";
+import { AppButton } from "../components/AppButton";
 
 const StepThree = () => {
+  const [userCharacter, setUseCharacter] = useState("");
+  const [isDisabled, setIsDisabled] = useState(true);
+  const navigate = useNavigate();
+  const variant = [
+    {
+      id: "variant-1",
+      text: "Весёлый",
+      img: "./img/laugh.png",
+    },
+    {
+      id: "variant-2",
+      text: "Красивый",
+      img: "./img/hearts.png",
+    },
+    {
+      id: "variant-3",
+      text: "Хитрый",
+      img: "./img/smirk.png",
+    },
+    {
+      id: "variant-4",
+      text: "Трусливый",
+      img: "./img/fright.png",
+    },
+  ];
+  useEffect(()=>{
+    const userData = JSON.parse(localStorage.getItem("user")) || {}
+    localStorage.setItem("user", JSON.stringify({...userData, userCharacter}))
+    userCharacter ? setIsDisabled(false) : setIsDisabled(true)
+  },[userCharacter])
   return (
     <div className="container">
       <div className="wrapper">
         <div className="emoji-quiz">
-          <div className="indicator">
-            <div className="indicator__text">
-              <span className="indicator__description">
-                Скидка за прохождение опроса:
-              </span>
-              <span className="indicator__value">15%</span>
-            </div>
-            <div className="indicator__progressbar">
-              <div className="indicator__unit indicator__unit-1 _active"></div>
-              <div className="indicator__unit indicator__unit-2 _active"></div>
-              <div className="indicator__unit indicator__unit-3"></div>
-              <div className="indicator__unit indicator__unit-4"></div>
-            </div>
-          </div>
+          <ProgressBar currentStep={3} />
           <div className="question">
-            <h2>3. Занимательный вопрос</h2>
+            <Header headerText="Ваш характер" headerType="h2" />
             <ul className="emoji-variants">
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-1" />
-                <label htmlFor="variant-1">
-                  <img src="./img/laugh.png" alt="laugh" />
-                  <p>Ваш ответ 1</p>
-                </label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-2" />
-                <label htmlFor="variant-2">
-                  <img src="./img/hearts.png" alt="hearts" />
-                  <p>Ваш ответ 2</p>
-                </label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-3" />
-                <label htmlFor="variant-3">
-                  <img src="./img/smirk.png" alt="smirk" />
-                  <p>Ваш ответ 3</p>
-                </label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-4" />
-                <label htmlFor="variant-4">
-                  <img src="./img/fright.png" alt="fright" />
-                  <p>Ваш ответ 4</p>
-                </label>
-              </li>
+              {variant.map((elem) => (
+                <li className="variant-wrapper">
+                  <input
+                    key={elem.id}
+                    required
+                    type="radio"
+                    name="variant"
+                    value={elem.text}
+                    id={elem.id}
+                    onChange={(e) => setUseCharacter(e.target.value)}
+                  />
+                  <label htmlFor={elem.id}>
+                    <img src={elem.img} alt="laugh" />
+                    <p>{elem.text}</p>
+                  </label>
+                </li>
+              ))}
             </ul>
-            <button type="button" disabled id="next-btn">
-              Далее
-            </button>
+            <AppButton
+              isDisabled={isDisabled}
+              btnClick={() => navigate("/step-four")}
+            />
           </div>
         </div>
       </div>

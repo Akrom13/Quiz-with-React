@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../components/Header";
 import { AppButton } from "../components/AppButton";
 import { AppLabel } from "../components/AppLabel";
-import { useNavigate } from "react-router-dom";
 
 const Welcome = () => {
   const [userName, setUserName] = useState("");
@@ -12,12 +12,11 @@ const Welcome = () => {
   const [errorPhone, setErrorPhone] = useState(false);
 
   const [isDisabled, setIsDisabled] = useState(true);
+  const navigate = useNavigate();
 
   const RegexUser = /^[a-zA-Zа-яА-ЯёЁ\s]+$/;
   const RegexPhone =
     /^\+?\d{1,3}?[-.\s]?\(?\d{1,4}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/;
-
-  const navigate = useNavigate();
 
   const handleClick = () => {
     if (!RegexUser.test(userName)) {
@@ -80,10 +79,8 @@ const Welcome = () => {
               isError={errorPhone}
             />
             <AppButton
-              btnText="Далее"
+              btnClick={() => navigate("/step-one")}
               isDisabled={isDisabled}
-              btnType="button"
-              btnClick={() => handleClick()}
             />
           </form>
         </div>
